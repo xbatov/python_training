@@ -1,176 +1,136 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import unittest, time, re
+
+from contact import Contact
+
+import unittest
 
 
-class TestAddGroup(unittest.TestCase):
+class TestAddContact(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
-        self.base_url = "https://www.google.com/"
-        self.verificationErrors = []
-        self.accept_next_alert = True
+        self.wd = webdriver.Firefox()
+        self.wd.implicitly_wait(30)
 
-    def test_add_group(self):
-        driver = self.driver
-        driver.get("https://localhost/addressbook/")
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys("admin")
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").clear()
-        driver.find_element_by_name("pass").send_keys("secret")
-        driver.find_element_by_xpath("//input[@value='Login']").click()
-        driver.find_element_by_link_text("groups").click()
-        driver.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
-        driver.find_element_by_name("group_name").click()
-        driver.find_element_by_name("group_name").clear()
-        driver.find_element_by_name("group_name").send_keys("Group_1")
-        driver.find_element_by_name("group_header").click()
-        driver.find_element_by_name("group_header").clear()
-        driver.find_element_by_name("group_header").send_keys("Header of group_1")
-        driver.find_element_by_name("group_footer").click()
-        driver.find_element_by_name("group_footer").clear()
-        driver.find_element_by_name("group_footer").send_keys("Footer of Group_1")
-        driver.find_element_by_name("submit").click()
-        driver.find_element_by_link_text("group page").click()
-        driver.find_element_by_link_text("Logout").click()
-        driver.find_element_by_name("user").click()
-        driver.find_element_by_name("user").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=user | ]]
-        driver.find_element_by_xpath("//*/text()[normalize-space(.)='']/parent::*").click()
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=pass | ]]
-        driver.find_element_by_xpath("//input[@value='Login']").click()
-        driver.find_element_by_link_text("groups").click()
-        driver.find_element_by_xpath("//div[@id='content']/form/input[4]").click()
-        driver.find_element_by_name("group_name").click()
-        driver.find_element_by_name("group_name").clear()
-        driver.find_element_by_name("group_name").send_keys("Gr_1")
-        driver.find_element_by_name("group_header").click()
-        driver.find_element_by_name("group_header").clear()
-        driver.find_element_by_name("group_header").send_keys("Header")
-        driver.find_element_by_name("group_footer").click()
-        driver.find_element_by_name("group_footer").clear()
-        driver.find_element_by_name("group_footer").send_keys("Footer")
-        driver.find_element_by_name("submit").click()
-        driver.find_element_by_link_text("group page").click()
-        driver.find_element_by_link_text("Logout").click()
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys("admin")
-        driver.find_element_by_name("user").click()
-        driver.find_element_by_xpath("//form[@id='LoginForm']/label[2]").click()
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").click()
-        # ERROR: Caught exception [ERROR: Unsupported command [doubleClick | name=pass | ]]
-        driver.find_element_by_xpath("//input[@value='Login']").click()
-        driver.find_element_by_link_text("add new").click()
-        driver.find_element_by_name("firstname").click()
-        driver.find_element_by_name("firstname").clear()
-        driver.find_element_by_name("firstname").send_keys("Alex")
-        driver.find_element_by_name("middlename").click()
-        driver.find_element_by_name("middlename").clear()
-        driver.find_element_by_name("middlename").send_keys("Nicolaevich")
-        driver.find_element_by_name("lastname").click()
-        driver.find_element_by_name("lastname").clear()
-        driver.find_element_by_name("lastname").send_keys("Bom")
-        driver.find_element_by_name("nickname").click()
-        driver.find_element_by_name("nickname").clear()
-        driver.find_element_by_name("nickname").send_keys("AlBom")
-        driver.find_element_by_name("title").click()
-        driver.find_element_by_name("title").clear()
-        driver.find_element_by_name("title").send_keys("Title")
-        driver.find_element_by_name("theform").click()
-        driver.find_element_by_name("company").click()
-        driver.find_element_by_name("company").clear()
-        driver.find_element_by_name("company").send_keys("Company")
-        driver.find_element_by_name("theform").click()
-        driver.find_element_by_name("address").click()
-        driver.find_element_by_name("address").clear()
-        driver.find_element_by_name("address").send_keys("Address")
-        driver.find_element_by_name("theform").click()
-        driver.find_element_by_name("home").click()
-        driver.find_element_by_name("home").clear()
-        driver.find_element_by_name("home").send_keys("123-22-55")
-        driver.find_element_by_name("mobile").click()
-        driver.find_element_by_name("mobile").clear()
-        driver.find_element_by_name("mobile").send_keys("900-100-25-25")
-        driver.find_element_by_name("work").click()
-        driver.find_element_by_name("work").clear()
-        driver.find_element_by_name("work").send_keys("112")
-        driver.find_element_by_name("fax").click()
-        driver.find_element_by_name("fax").clear()
-        driver.find_element_by_name("fax").send_keys("no fax")
-        driver.find_element_by_name("email").click()
-        driver.find_element_by_name("email").clear()
-        driver.find_element_by_name("email").send_keys("alex@yandex.ru")
-        driver.find_element_by_name("email2").click()
-        driver.find_element_by_name("email2").clear()
-        driver.find_element_by_name("email2").send_keys("alex2@yandex.ru")
-        driver.find_element_by_name("email3").click()
-        driver.find_element_by_name("email3").clear()
-        driver.find_element_by_name("email3").send_keys("alex3@yandex.ru")
-        driver.find_element_by_name("homepage").click()
-        driver.find_element_by_name("homepage").clear()
-        driver.find_element_by_name("homepage").send_keys("ya.ru")
-        driver.find_element_by_name("bday").click()
-        Select(driver.find_element_by_name("bday")).select_by_visible_text("28")
-        driver.find_element_by_xpath("//option[@value='28']").click()
-        driver.find_element_by_name("bmonth").click()
-        Select(driver.find_element_by_name("bmonth")).select_by_visible_text("November")
-        driver.find_element_by_xpath("//option[@value='November']").click()
-        driver.find_element_by_name("byear").click()
-        driver.find_element_by_name("byear").clear()
-        driver.find_element_by_name("byear").send_keys("1999")
-        driver.find_element_by_name("aday").click()
-        Select(driver.find_element_by_name("aday")).select_by_visible_text("30")
-        driver.find_element_by_xpath("//div[@id='content']/form/select[3]/option[32]").click()
-        driver.find_element_by_name("amonth").click()
-        Select(driver.find_element_by_name("amonth")).select_by_visible_text("October")
-        driver.find_element_by_xpath("//div[@id='content']/form/select[4]/option[11]").click()
-        driver.find_element_by_name("ayear").click()
-        driver.find_element_by_name("ayear").clear()
-        driver.find_element_by_name("ayear").send_keys("2020")
-        driver.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
-        driver.find_element_by_link_text("home page").click()
-        driver.find_element_by_link_text("Logout").click()
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys("admin")
+
+    def test_add_contact(self):
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, username="admin", password="secret")
+        self.Add_new_contact(wd)
+        contact = Contact(firstname="", middlename="", lastname="", nickname="",
+                          title="", company="", address="", home="", mobile="", work="", fax="",
+                          email="", email2="", email3="", homepage="", byear="", ayear="",
+                          bday="", bmonth="", aday="", amonth="")
+        self.fill_contact(wd)
+        self.back_to_home(wd)
+        self.logout(wd)
+
+    def logout(self, wd):
+        wd.find_element_by_link_text("Logout").click()
+
+    def back_to_home(self, wd):
+        wd.find_element_by_link_text("home page").click()
+
+    def fill_contact(self, wd, contact):
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").clear()
+        wd.find_element_by_name("middlename").send_keys(contact.middlename)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        wd.find_element_by_name("nickname").click()
+        wd.find_element_by_name("nickname").clear()
+        wd.find_element_by_name("nickname").send_keys(contact.nickname)
+        wd.find_element_by_name("title").click()
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(contact.title)
+        wd.find_element_by_name("company").click()
+        wd.find_element_by_name("company").clear()
+        wd.find_element_by_name("company").send_keys(contact.company)
+        wd.find_element_by_name("address").click()
+        wd.find_element_by_name("address").clear()
+        wd.find_element_by_name("address").send_keys(contact.address)
+        wd.find_element_by_name("home").click()
+        wd.find_element_by_name("home").clear()
+        wd.find_element_by_name("home").send_keys(contact.home)
+        wd.find_element_by_name("mobile").click()
+        wd.find_element_by_name("mobile").clear()
+        wd.find_element_by_name("mobile").send_keys(contact.mobile)
+        wd.find_element_by_name("work").click()
+        wd.find_element_by_name("work").clear()
+        wd.find_element_by_name("work").send_keys(contact.work)
+        wd.find_element_by_name("fax").click()
+        wd.find_element_by_name("fax").clear()
+        wd.find_element_by_name("fax").send_keys(contact.fax)
+        wd.find_element_by_name("email").click()
+        wd.find_element_by_name("email").clear()
+        wd.find_element_by_name("email").send_keys(contact.email)
+        wd.find_element_by_name("email2").click()
+        wd.find_element_by_name("email2").clear()
+        wd.find_element_by_name("email2").send_keys(contact.email2)
+        wd.find_element_by_name("email3").click()
+        wd.find_element_by_name("email3").clear()
+        wd.find_element_by_name("email3").send_keys(contact.email3)
+        wd.find_element_by_name("homepage").click()
+        wd.find_element_by_name("homepage").clear()
+        wd.find_element_by_name("homepage").send_keys(contact.homepage)
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(contact.byear)
+        wd.find_element_by_name("ayear").click()
+        wd.find_element_by_name("ayear").clear()
+        wd.find_element_by_name("ayear").send_keys(contact.ayear)
+        wd.find_element_by_name("bday").click()
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(contact.bday)
+        wd.find_element_by_xpath("//option[@value='28']").click()
+        wd.find_element_by_name("bmonth").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(contact.bmonth)
+        wd.find_element_by_xpath("//option[@value='November']").click()
+        wd.find_element_by_name("aday").click()
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.aday)
+        wd.find_element_by_xpath("//div[@id='content']/form/select[3]/option[32]").click()
+        wd.find_element_by_name("amonth").click()
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
+        wd.find_element_by_xpath("//div[@id='content']/form/select[4]/option[11]").click()
+        #sumbit
+        wd.find_element_by_xpath("//div[@id='content']/form/input[20]").click()
+
+    def Add_new_contact(self, wd):
+        wd.find_element_by_link_text("add new").click()
+
+    def login(self, wd, username, password):
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys(username)
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys(password)
+        wd.find_element_by_xpath("//input[@value='Login']").click()
+
+    def open_home_page(self, wd):
+        wd.get("https://localhost/addressbook/")
+
 
     def is_element_present(self, how, what):
         try:
-            self.driver.find_element(by=how, value=what)
+            self.wd.find_element(by=how, value=what)
         except NoSuchElementException as e:
             return False
         return True
 
     def is_alert_present(self):
         try:
-            self.driver.switch_to_alert()
+            self.wd.switch_to_alert()
         except NoAlertPresentException as e:
             return False
         return True
 
-    def close_alert_and_get_its_text(self):
-        try:
-            alert = self.driver.switch_to_alert()
-            alert_text = alert.text
-            if self.accept_next_alert:
-                alert.accept()
-            else:
-                alert.dismiss()
-            return alert_text
-        finally:
-            self.accept_next_alert = True
-
     def tearDown(self):
-        self.driver.quit()
-        self.assertEqual([], self.verificationErrors)
+        self.wd.quit()
 
 
 if __name__ == "__main__":
