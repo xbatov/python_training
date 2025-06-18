@@ -6,7 +6,6 @@ from selenium.webdriver.support.select import Select
 from contact import Contact
 import unittest
 
-
 class TestAddContact(unittest.TestCase):
     def setUp(self):
         self.wd = webdriver.Firefox()
@@ -22,7 +21,7 @@ class TestAddContact(unittest.TestCase):
                           mobile="+11002051", work="+11002052", fax="none",
                           email="donald@usa.gov", email2="donald2@usa.gov", email3="donald3@usa.gov",
                           homepage="usa.gov", byear="1950", ayear="2025",
-                          bday="4", bmonth="4", aday="4", amonth="4")
+                          bday="4", bmonth="November", aday="4", amonth="October")
         self.fill_contact(wd, contact)
         self.back_to_home(wd)
         self.logout(wd)
