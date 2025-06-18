@@ -3,7 +3,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.select import Select
-from contact import Contact
+from _сontact import Contact
 import unittest
 
 class TestAddContact(unittest.TestCase):
