@@ -2,9 +2,8 @@
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-
+from selenium.webdriver.support.select import Select
 from contact import Contact
-
 import unittest
 
 
@@ -13,17 +12,18 @@ class TestAddContact(unittest.TestCase):
         self.wd = webdriver.Firefox()
         self.wd.implicitly_wait(30)
 
-
     def test_add_contact(self):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin", password="secret")
         self.Add_new_contact(wd)
-        contact = Contact(firstname="", middlename="", lastname="", nickname="",
-                          title="", company="", address="", home="", mobile="", work="", fax="",
-                          email="", email2="", email3="", homepage="", byear="", ayear="",
-                          bday="", bmonth="", aday="", amonth="")
-        self.fill_contact(wd)
+        contact = Contact(firstname="Donald", middlename="Jr", lastname="Trump", nickname="POTUS",
+                          title="CEO", company="White house", address="Washington DC", home="+11002050",
+                          mobile="+11002051", work="+11002052", fax="none",
+                          email="donald@usa.gov", email2="donald2@usa.gov", email3="donald3@usa.gov",
+                          homepage="usa.gov", byear="1950", ayear="2025",
+                          bday="4", bmonth="4", aday="4", amonth="4")
+        self.fill_contact(wd, contact)
         self.back_to_home(wd)
         self.logout(wd)
 
@@ -113,7 +113,6 @@ class TestAddContact(unittest.TestCase):
 
     def open_home_page(self, wd):
         wd.get("https://localhost/addressbook/")
-
 
     def is_element_present(self, how, what):
         try:
