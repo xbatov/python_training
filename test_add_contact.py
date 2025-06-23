@@ -11,7 +11,7 @@ def app(request):
     return fixture
 
 
-def test_add_contact(self):
+def test_add_contact(app):
     app.login(username="admin", password="secret")
     contact = Contact(firstname="Donald", middlename="Jr", lastname="Trump", nickname="POTUS", title="CEO",
                       company="White house", address="Washington DC", homephone="+11002050", mobilephone="+11002051",
