@@ -18,5 +18,5 @@ def test_add_contact(app):
                       workphone="+11002052", fax="none", email="donald@usa.gov", email2="donald2@usa.gov",
                       email3="donald3@usa.gov", homepage="usa.gov", byear="1950", ayear="2025", bday="4",
                       bmonth="November", aday="4", amonth="October")
-    app.Add_new_contact(contact)
+    app.contact.Add_new_contact(contact)
     app.session.logout()
