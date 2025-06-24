@@ -144,10 +144,7 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
         #Delete
-        wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
-        #back_to_home
-        self.return_home_page()
-
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
 
     def return_home_page(self):
         wd = self.app.wd
