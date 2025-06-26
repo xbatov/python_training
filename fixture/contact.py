@@ -6,13 +6,7 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    def create(self, contact, ButtonName):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
-        if ButtonName == "submit":
-            wd.find_element_by_link_text("add new").click()
-        else:
-            wd.find_element_by_xpath("//img[@alt='Edit']").click()
+    def filling (self, wd, contact):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
         wd.find_element_by_name("firstname").send_keys(contact.firstname)
@@ -72,16 +66,26 @@ class ContactHelper:
         Select(wd.find_element_by_name("aday")).select_by_visible_text(contact.aday)
         wd.find_element_by_name("amonth").click()
         Select(wd.find_element_by_name("amonth")).select_by_visible_text(contact.amonth)
-        #sumbit
-        wd.find_element_by_name(ButtonName).click()
-        #back_to_home
+
+    def create(self, contact):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        wd.find_element_by_link_text("add new").click()
+        self.filling(wd, contact)
+        wd.find_element_by_name("submit").click()
         self.return_home_page()
 
-    def delete (self):
+    def edit(self, contact):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.filling(wd, contact)
+        wd.find_element_by_name("update").click()
+        self.return_home_page()
+
+    def delete(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
         wd.find_element_by_xpath("//img[@alt='Edit']").click()
-        #Delete
         wd.find_element_by_xpath("//input[@value='Delete']").click()
 
     def return_home_page(self):
