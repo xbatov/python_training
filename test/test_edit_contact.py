@@ -8,5 +8,5 @@ def test_edit_contact(app):
                       company="White house2", address="Washington DC2", homephone="+110020502", mobilephone="+110020512",
                       workphone="+110020522", fax="none2", email="donald@usa.gov2", email2="donald2@usa.gov2",
                       email3="donald3@usa.gov2", homepage="usa.gov2", byear="1952", ayear="2024", bday="24", bmonth="May", aday="14", amonth="December")
-    app.contact.Edit(contact)
+    app.contact.create(contact, ButtonName = "update")
     app.session.logout()

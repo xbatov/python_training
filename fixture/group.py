@@ -47,7 +47,6 @@ class GroupHelper:
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("123")
         wd.find_element_by_name("update").click()
-        self.return_groups_page()
 
     def return_groups_page(self):
         wd = self.app.wd
