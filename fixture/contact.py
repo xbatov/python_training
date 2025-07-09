@@ -1,3 +1,4 @@
+from operator import index
 
 from selenium.webdriver.support.select import Select
 from model._сontact import Contact
@@ -83,17 +84,23 @@ class ContactHelper:
             wd.find_element_by_link_text("home").click()
 
     def edit(self, contact):
+        self.update_contact_by_index (0)
+
+    def update_contact_by_index(self, contact, index,):
         wd = self.app.wd
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         self.filling(wd, contact)
         wd.find_element_by_name("update").click()
         self.return_home_page()
         self.contact_cache = None
 
     def delete(self):
+        self.delete_contact_by_index(index)
+
+    def delete_contact_by_index(self,index):
         wd = self.app.wd
         self.open_home_page()
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         self.contact_cache = None
         self.open_home_page()
@@ -120,3 +127,6 @@ class ContactHelper:
                 id = element.find_element_by_name("selected[]").get_attribute("value")
                 self.contact_cache.append(Contact(firstname=first_name,lastname=last_name,id=id))
         return list(self.contact_cache)
+
+
+
