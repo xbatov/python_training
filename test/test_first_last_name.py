@@ -1,6 +1,6 @@
 from random import randrange
 
-def test_firstname_on_home_page(app):
+def test_first_last_name_on_home_page(app):
     contacts_count = app.contact.get_contact_list()
     index = randrange(len(contacts_count))
     contact_from_home_page = app.contact.get_contact_list()[index]
