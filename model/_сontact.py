@@ -16,6 +16,7 @@ class Contact:
         self.homephone = homephone
         self.mobilephone = mobilephone
         self.workphone = workphone
+        self.address = address
         self.fax = fax
         self.email = email
         self.email2 = email2
