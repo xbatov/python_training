@@ -1,7 +1,7 @@
 from operator import index
 import re, time
 from selenium.webdriver.support.select import Select
-from model._сontact import Contact
+from model._contact import Contact
 
 class ContactHelper:
 
