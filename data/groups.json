@@ -1,38 +1,16 @@
 [
   {
+    "py/object": "model._group.Group",
     "name": "",
     "header": "",
     "footer": "",
     "id": null
   },
   {
-    "name": "name",
-    "header": "header+8c/m Q|zc'cUspHgF",
-    "footer": "footerkDPk-",
-    "id": null
-  },
-  {
-    "name": "nameU",
-    "header": "headerA{U, hDOF<;,yXyG>t",
-    "footer": "footer",
-    "id": null
-  },
-  {
-    "name": "name2y",
-    "header": "headerHSS4{",
-    "footer": "footer",
-    "id": null
-  },
-  {
-    "name": "name?y~(C}y]_",
-    "header": "headerC &* V I.P5",
-    "footer": "footerN",
-    "id": null
-  },
-  {
-    "name": "nameB&c.yDH&*",
-    "header": "header|fWi $b%Dn#",
-    "footer": "footerUI kH@;M BEE",
+    "py/object": "model._group.Group",
+    "name": "name:lS",
+    "header": "header:bcT",
+    "footer": "footer:xZ2r",
     "id": null
   }
 ]
