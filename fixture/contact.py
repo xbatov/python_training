@@ -114,10 +114,6 @@ class ContactHelper:
         self.contact_cache = None
         self.open_home_page()
 
-    def select_contact_by_index(self, index):
-        wd = self.app.wd
-        wd.find_elements_by_name("selected[]")[index].click()
-
     def return_home_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/edit.php") and len(wd.find_elements_by_name("searchstring")) > 0):
