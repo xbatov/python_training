@@ -31,10 +31,10 @@ class DbFixture():
                 "select id, firstname, lastname, address, home, mobile, work, email, email2, email3 from addressbook where deprecated is null")
             for row in cursor:
                 (id, firstname, lastname, address, home, mobile, work, email, email2, email3) = row
-                all_phones = "\n".join(filter(None, [home, mobile, work]))
-                all_emails = "\n".join(filter(None, [email, email2, email3]))
+                phones = "\n".join(filter(None, [home, mobile, work]))
+                emails = "\n".join(filter(None, [email, email2, email3]))
                 list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address,
-                                    all_emails_from_home_page=all_emails, all_phones_from_home_page=all_phones))
+                                    all_emails_from_home_page=emails, all_phones_from_home_page=phones))
         finally:
             cursor.close()
         return list
