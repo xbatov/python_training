@@ -32,7 +32,6 @@ class DbFixture():
                 " from addressbook where deprecated is null")
             for row in cursor:
                 (id, firstname, lastname, address, home, mobile, work, email, email2, email3) = row
-
                 list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address,
                                     homephone=home, mobilephone=mobile, workphone=work,email=email, email2=email2, email3=email3))
         finally:
