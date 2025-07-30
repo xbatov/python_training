@@ -2,6 +2,7 @@ from operator import index
 import re, time
 from selenium.webdriver.support.select import Select
 from model._contact import Contact
+from model._group import Group
 
 class ContactHelper:
 
@@ -203,3 +204,17 @@ class ContactHelper:
         wd = self.app.wd
         self.open_home_page()
         wd.find_element_by_css_selector("[href='edit.php?id=%i']" % int(id)).click()
+
+    def add_contact_by_id_in_group(self, contact, group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_css_selector(f"input[value='{contact.id}']").click()
+        wd.find_element_by_xpath(f"//select[@name='to_group']/option[@value='{group.id}']").click()
+        wd.find_element_by_name('add').click()
+
+    def delete_contact_by_id_from_group(self, contact, group):
+        wd = self.app.wd
+        self.app.open_home_page()
+        wd.find_element_by_xpath("//select[@name='group']/option[@value='%s']" % group.id).click()
+        wd.find_element_by_css_selector("input[value='%s']" % contact.id).click()
+        wd.find_element_by_name('remove').click()
