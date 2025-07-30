@@ -13,17 +13,11 @@ def test_check_ui_db_contacts(app, db):
     db_contacts = sorted(db.get_contact_list(), key=Contact.id_or_max)
 
     for i in range(len(ui_contacts)):
-        assert ui_contacts[i].firstname == clear_names(db_contacts[i].firstname)
-        assert ui_contacts[i].lastname == clear_names(db_contacts[i].lastname)
+        assert ui_contacts[i].firstname == db_contacts[i].firstname
+        assert ui_contacts[i].lastname == db_contacts[i].lastname
         assert ui_contacts[i].address == db_contacts[i].address
         assert ui_contacts[i].all_phones_from_home_page == merge_phones_like_on_home_page(db_contacts[i])
         assert ui_contacts[i].all_emails_from_home_page == merge_emails_like_on_home_page(db_contacts[i])
-
-def clear_names(string):
-    if string and string[-1] == " ":
-        return string[0:-1]
-    else:
-        return string
 
 def merge_phones_like_on_home_page(contact):
     return "\n".join(filter(lambda x: x != "",
@@ -35,4 +29,6 @@ def clear(s):
     return re.sub("[() -]", "", s)
 
 def merge_emails_like_on_home_page(contact):
-    return "\n".join([contact.email, contact.email2, contact.email3])
+    return "\n".join(filter(lambda x: x != "",
+                            filter(lambda x: x is not None,
+                                   [contact.email, contact.email2, contact.email3])))
